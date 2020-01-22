@@ -1,0 +1,10 @@
+<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:calc">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:pow soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+         <a xsi:type="xsd:double">2</a>
+         <b xsi:type="xsd:double">3</b>
+      </urn:pow>
+   </soapenv:Body>
+</soapenv:Envelope>
+
