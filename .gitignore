@@ -1,1 +1,6 @@
+/CalcClient/build/
+/CalcClient/dist/
+/CalcClient/nbproject/private/
 /build/
+
+*.class
