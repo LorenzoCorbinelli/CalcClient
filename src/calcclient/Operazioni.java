@@ -16,18 +16,7 @@ public class Operazioni
     private PrintWriter output;
     private BufferedOutputStream dataOut;
     
-    public Operazioni()
-    {
-        try
-        {
-            s = new Socket("websrv.cs.fsu.edu", 80);
-            input = new Scanner(s.getInputStream(), "UTF-8");
-            output = new PrintWriter(new OutputStreamWriter(s.getOutputStream(), "UTF-8"), true);
-            dataOut = new BufferedOutputStream(s.getOutputStream());
-        }catch(Exception e){}
-    }
-    
-     private byte[] readFileData(File file, int fileLength) throws IOException 
+    private byte[] readFileData(File file, int fileLength) throws IOException 
     {
         FileInputStream fileIn = null;
         byte[] fileData = new byte[fileLength];
@@ -43,15 +32,42 @@ public class Operazioni
         return fileData;
     }
      
-    public void add() throws IOException
+    public boolean operazione(String op) throws IOException
     {
-        File file = new File("add.xml");
-      //  FileInputStream fileis = new FileInputStream(file);
+        try
+        {
+            s = new Socket("websrv.cs.fsu.edu", 80);
+            input = new Scanner(s.getInputStream(), "UTF-8");
+            output = new PrintWriter(new OutputStreamWriter(s.getOutputStream(), "UTF-8"), true);
+            dataOut = new BufferedOutputStream(s.getOutputStream());
+        }catch(Exception e){}
+        
+        File file = null;
+        switch(op)
+        {
+            case "add":
+                file = new File("add.xml");
+                break;
+            case "sub":
+                file = new File("sub.xml");
+                break;
+            case "mul":
+                file = new File("mul.xml");
+                break;
+            case "div":
+                file = new File("div.xml");
+                break;
+            case "pow":
+                file = new File("pow.xml");
+                break;
+            default:
+                return false;
+        }
         byte[] fileData = readFileData(file, (int)file.length());
 
         output.println("POST /~engelen/calcserver.cgi HTTP/1.1");
         output.println("Host: websrv.cs.fsu.edu");
-        output.println("Connection: Keep-Alive");
+      //  output.println("Connection: Keep-Alive");
         output.println("Content-Type: text/xml");
         output.println("Content-Length: "+file.length());
         output.println("");
@@ -65,5 +81,7 @@ public class Operazioni
         {
             System.out.println(input.nextLine());
         }
+        System.out.println("");
+        return true;
     }
 }
